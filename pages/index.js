@@ -6,28 +6,36 @@ import { get } from "axios";
 const Home = props => (
   <div>
     <Head>
-      <title>Fantasy Picker</title>
+      <title>Fantasy Hockey Picker</title>
     </Head>
 
     <Nav />
 
     <div className="hero">
-      <p>{props.players.length}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Player name/position</th>
+            <th>Current team</th>
+            <th>Corsica rank</th>
+            <th>Corsica rating</th>
+          </tr>
+        </thead>
+      </table>
+      <tbody></tbody>
       {props.players.map(player => (
-        <div
+        <tr
           key={player.id}
           className={player.selected ? "selected" : "not-selected"}>
-          <h1>
+          <td>
             {player.name} ({player.position})
-          </h1>
-          <ul>
-            <li>{player.team}</li>
-            <li>
-              Corsica rank: {player.position}-{player.rank}
-            </li>
-            <li>Corsica rating: {player.rating}</li>
-          </ul>
-        </div>
+          </td>
+          <td>{player.team}</td>
+          <td>
+            {player.position}-{player.rank}
+          </td>
+          <td>{player.rating}</td>
+        </tr>
       ))}
     </div>
   </div>
