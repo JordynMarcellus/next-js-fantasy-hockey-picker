@@ -1,6 +1,8 @@
 import React from "react";
 import Head from "next/head";
+import styled from "@emotion/styled";
 import Nav from "../components/nav";
+import * as indexStyles from "./index.styles";
 import { get } from "axios";
 
 const Home = props => (
@@ -11,33 +13,47 @@ const Home = props => (
 
     <Nav />
 
-    <div className="hero">
-      <table>
+    <indexStyles.StyledLayout>
+      <indexStyles.StyledTable>
         <thead>
           <tr>
-            <th>Player name/position</th>
-            <th>Current team</th>
-            <th>Corsica rank</th>
-            <th>Corsica rating</th>
+            <indexStyles.StyledCell as="th">
+              Corsica rank
+            </indexStyles.StyledCell>
+            <indexStyles.StyledCell as="th">
+              Player name/position
+            </indexStyles.StyledCell>
+            <indexStyles.StyledCell as="th">
+              Current team
+            </indexStyles.StyledCell>
+            <indexStyles.StyledCell as="th">
+              Corsica rating
+            </indexStyles.StyledCell>
           </tr>
         </thead>
-      </table>
-      <tbody></tbody>
-      {props.players.map(player => (
-        <tr
-          key={player.id}
-          className={player.selected ? "selected" : "not-selected"}>
-          <td>
-            {player.name} ({player.position})
-          </td>
-          <td>{player.team}</td>
-          <td>
-            {player.position}-{player.rank}
-          </td>
-          <td>{player.rating}</td>
-        </tr>
-      ))}
-    </div>
+        <tbody>
+          {props.players.map(player => (
+            <indexStyles.StyledRow
+              key={player.id}
+              className={player.selected ? "selected" : "not-selected"}>
+              <indexStyles.StyledCell>
+                <indexStyles.RankingAvatar position={player.position}>
+                  <span>
+                    {player.position}
+                    {player.rank}
+                  </span>
+                </indexStyles.RankingAvatar>
+              </indexStyles.StyledCell>
+              <indexStyles.StyledCell>{player.name}</indexStyles.StyledCell>
+              <indexStyles.StyledCell>{player.team}</indexStyles.StyledCell>
+              <indexStyles.StyledCell isNumber>
+                {player.rating}
+              </indexStyles.StyledCell>
+            </indexStyles.StyledRow>
+          ))}
+        </tbody>
+      </indexStyles.StyledTable>
+    </indexStyles.StyledLayout>
   </div>
 );
 
