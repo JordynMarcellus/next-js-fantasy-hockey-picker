@@ -17,7 +17,7 @@ export const StyledTable = styled.table`
 export const StyledHeader = styled.thead``;
 
 export const StyledRow = styled.tr`
-  background-color: #fff;
+  background-color: ${({ isDrafted }) => (isDrafted ? "red" : "#fff")};
 `;
 
 export const StyledLayout = styled.main`

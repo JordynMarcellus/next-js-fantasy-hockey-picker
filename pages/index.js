@@ -33,9 +33,7 @@ const Home = props => (
         </thead>
         <tbody>
           {props.players.map(player => (
-            <indexStyles.StyledRow
-              key={player.id}
-              className={player.selected ? "selected" : "not-selected"}>
+            <indexStyles.StyledRow key={player.id} isDrafted={player.selected}>
               <indexStyles.StyledCell>
                 <indexStyles.RankingAvatar position={player.position}>
                   <span>
