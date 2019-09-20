@@ -39,15 +39,13 @@ const StyledNavLink = styled.a(
 const Nav = () => {
   // useRouter is experimental USE AT OWN RISK
   const router = useRouter();
-  console.log(router);
   return (
     <StyledNav>
       <StyledNavList>
         {links.map(({ key, href, label }) => (
           <StyledNavListItem key={key}>
             <Link href={href} passHref>
-              <StyledNavLink
-                isActive={router.pathname === href ? "true" : false}>
+              <StyledNavLink isActive={router.pathname === href ? true : false}>
                 {label}
               </StyledNavLink>
             </Link>
