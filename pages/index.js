@@ -10,27 +10,26 @@ const Home = props => (
     <Head>
       <title>Fantasy Hockey Picker</title>
     </Head>
-
     <Nav />
-
+    {/* let's dry this up when we get to making more tables... */}
     <indexStyles.StyledLayout>
       <indexStyles.StyledTable>
-        <thead>
+        <indexStyles.StyledTableHeader>
           <tr>
-            <indexStyles.StyledCell as="th">
+            <indexStyles.StyledCell as="th" textAlign="center">
               Corsica rank
             </indexStyles.StyledCell>
-            <indexStyles.StyledCell as="th">
+            <indexStyles.StyledCell as="th" textAlign="center">
               Player name/position
             </indexStyles.StyledCell>
-            <indexStyles.StyledCell as="th">
+            <indexStyles.StyledCell as="th" textAlign="center">
               Current team
             </indexStyles.StyledCell>
-            <indexStyles.StyledCell as="th">
+            <indexStyles.StyledCell as="th" textAlign="center">
               Corsica rating
             </indexStyles.StyledCell>
           </tr>
-        </thead>
+        </indexStyles.StyledTableHeader>
         <tbody>
           {props.players.map(player => (
             <indexStyles.StyledRow key={player.id} isDrafted={player.selected}>
@@ -44,7 +43,7 @@ const Home = props => (
               </indexStyles.StyledCell>
               <indexStyles.StyledCell>{player.name}</indexStyles.StyledCell>
               <indexStyles.StyledCell>{player.team}</indexStyles.StyledCell>
-              <indexStyles.StyledCell isNumber>
+              <indexStyles.StyledCell textAlign="right">
                 {player.rating}
               </indexStyles.StyledCell>
             </indexStyles.StyledRow>
