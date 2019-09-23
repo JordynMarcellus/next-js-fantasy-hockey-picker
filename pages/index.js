@@ -5,8 +5,19 @@ import Table from "../components/table";
 import * as indexStyles from "./index.styles";
 import { get, patch } from "axios";
 
+const selectPlayer = async ({ playerId, value }) => {
+  try {
+    const patchedRes = await patch(
+      `http://localhost:9009/players/${playerId}`,
+      { selected: value }
+    );
+    console.log(patchedRes);
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const Home = props => {
-  console.log(props.players);
   return (
     <div>
       <Head>
@@ -15,7 +26,7 @@ const Home = props => {
       <Nav />
       {/* let's dry this up when we get to making more tables... */}
       <indexStyles.StyledLayout>
-        <Table players={props.players} />
+        <Table players={props.players} selectPlayer={selectPlayer} />
       </indexStyles.StyledLayout>
     </div>
   );

@@ -27,7 +27,7 @@ const table = props => (
       {props.players.map(player => {
         const onPlayerSelect = playerId => value => {
           // run update
-          console.log(value, playerId);
+          props.selectPlayer({ value: !value, playerId });
         };
         return (
           <tableStyles.StyledRow key={player.id} isDrafted={player.selected}>
