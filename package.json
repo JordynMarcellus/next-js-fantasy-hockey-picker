@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@emotion/core": "^10.0.17",
@@ -17,7 +18,9 @@
     "react-dom": "16.9.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
-    "babel-plugin-emotion": "^10.0.19"
+    "babel-plugin-emotion": "^10.0.19",
+    "jest-emotion": "^10.0.17"
   }
 }

@@ -1,12 +1,12 @@
 import React from "react";
-import Checkbox from "./checkbox";
+import Checkbox from "../checkbox";
 import * as tableStyles from "./table.styles";
 
 /*
 
   data structure: 
   
-  {Columns} : [{header: "Corsica rank", key: "corsica-rank", cellChildren: (<tableStyles.RankingAvatar>
+  {Columns} : [{label: "Corsica rank", key: "corsica-rank", cellChildren: (<tableStyles.RankingAvatar>
       <span>
         {player.position}
         {player.rank}
@@ -33,21 +33,13 @@ const table = props => (
   <tableStyles.StyledTable>
     <tableStyles.StyledTableHeader>
       <tr>
-        <tableStyles.StyledCell as="th" textAlign="center">
-          Corsica rank
-        </tableStyles.StyledCell>
-        <tableStyles.StyledCell as="th" textAlign="center">
-          Player name/position
-        </tableStyles.StyledCell>
-        <tableStyles.StyledCell as="th" textAlign="center">
-          Current team
-        </tableStyles.StyledCell>
-        <tableStyles.StyledCell as="th" textAlign="center">
-          Corsica rating
-        </tableStyles.StyledCell>
-        <tableStyles.StyledCell as="th" textAlign="center">
-          Drafted?
-        </tableStyles.StyledCell>
+        {props.columns.map(tableColumn => {
+          return (
+            <tableStyles.StyledCell as="th" textAlign="center">
+              {tableColumn.label}
+            </tableStyles.StyledCell>
+          );
+        })}
       </tr>
     </tableStyles.StyledTableHeader>
     <tbody>

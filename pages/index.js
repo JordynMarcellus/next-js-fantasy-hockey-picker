@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Head from "next/head";
 import Nav from "../components/nav";
-import Table from "../components/table";
+import Table from "../components/Table/table";
 import SearchForm from "../components/searchForm";
 import * as indexStyles from "./index.styles";
 import { get, patch } from "axios";
@@ -17,6 +17,29 @@ const selectPlayer = async ({ playerId, value }) => {
   }
 };
 
+const columns = [
+  {
+    header: "Corsica rank",
+    key: "corsica-rank",
+  },
+  {
+    header: "Player name",
+    key: "player-name",
+  },
+  {
+    header: "Current team",
+    key: "current-team",
+  },
+  {
+    header: "Corsica rating",
+    key: "corsica-rating",
+  },
+  {
+    header: "Drafted?",
+    key: "drafted",
+  },
+];
+
 const Home = props => {
   return (
     <div>
@@ -24,10 +47,13 @@ const Home = props => {
         <title>Fantasy Hockey Picker</title>
       </Head>
       <Nav />
-      {/* let's dry this up when we get to making more tables... */}
       <indexStyles.StyledLayout>
         <SearchForm />
-        <Table players={props.players} selectPlayer={selectPlayer} />
+        <Table
+          columns={columns}
+          players={props.players}
+          selectPlayer={selectPlayer}
+        />
       </indexStyles.StyledLayout>
     </div>
   );
