@@ -120,18 +120,6 @@ class SearchForm extends Component {
             </label>
           ))}
         </fieldset>
-        <label>
-          Sort players
-          <select value={this.state.sortOrder} onChange={this.handleSortChange}>
-            {SORT.map(sortObj => (
-              <option
-                key={`${sortObj.label.toLowerCase()}`}
-                value={sortObj.value}>
-                {sortObj.label}
-              </option>
-            ))}
-          </select>
-        </label>
         {/* <label>
           Include drafted players
           <Checkbox
