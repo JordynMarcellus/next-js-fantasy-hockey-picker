@@ -21,9 +21,6 @@ export const StyledTableHeader = styled.thead`
 
 export const StyledRow = styled.tr`
   background-color: ${({ isDrafted }) => (isDrafted ? "red" : "#fff")};
-  &:nth-of-type(even) {
-    background-color: #d9d9d9;
-  }
 `;
 
 export const StyledCell = styled.td(
