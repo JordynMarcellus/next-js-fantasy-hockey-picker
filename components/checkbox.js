@@ -4,13 +4,16 @@ const checkbox = props => {
   return (
     <input
       onChange={event => {
-        const value = event.target.value === "on" ? true : false;
-        props.onChange(value);
+        props.onChange(event.target.checked);
       }}
       checked={props.isSelected}
       type="checkbox"
     />
   );
+};
+
+checkbox.defaultProps = {
+  isSelected: false,
 };
 
 export default checkbox;
