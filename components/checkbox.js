@@ -1,8 +1,6 @@
 import React from "react";
 
 const checkbox = props => {
-  console.log(props.isSelected);
-  console.log(typeof props.isSelected);
   return (
     <input
       onChange={event => {
