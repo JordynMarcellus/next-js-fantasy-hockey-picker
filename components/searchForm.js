@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Checkbox from "./checkbox";
+import * as formStyles from "./searchForm.styles";
 
 const SORT = [
   { label: "Ascending", value: "ASC" },
@@ -33,55 +35,94 @@ class SearchForm extends Component {
     super(props);
     this.state = {
       searchQuery: "",
-      filters: [],
+      filters: {
+        RD: false,
+        LD: false,
+        C: false,
+        RW: false,
+        LW: false,
+      },
       sortOrder: "ASC",
+      includeSelected: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleFilter = this.toggleFilter.bind(this);
+    this.handleSortChange = this.handleSortChange.bind(this);
   }
 
-  toggleFilter = event => {
-    console.log(event.target.name, event.target.value);
+  toggleFilter = label => value => {
+    console.log(label, value);
+    this.setState({
+      filters: {
+        ...this.state.filters,
+        [label]: value,
+      },
+    });
   };
 
   handleSubmit = event => {
     event.preventDefault();
+    console.log(this.state);
+  };
+
+  handleSortChange = e => {
+    this.setState({
+      sortOrder: e.target.value,
+    });
   };
 
   render() {
     return (
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="searchQuery">
+      <formStyles.StyledForm onSubmit={this.handleSubmit}>
+        {/* let's wait until we get search in there... */}
+        {/* <label htmlFor="searchQuery">
           Search for player by name
           <input
             name="searchQuery"
+            onChange={e => this.setState({ [e.target.name]: e.target.value })}
             value={this.state.searchQuery}
             type="text"
           />
-        </label>
+        </label> */}
         <fieldset>
           <legend>Filter players by position</legend>
-          {filters.map(filterObject => (
-            <label>
+          {FILTERS.map(filterObject => (
+            <label
+              key={`${filterObject.label.toLowerCase()}--${
+                filterObject.value
+              }`}>
               {filterObject.label}
-              <input
-                type="checkbox"
+              <Checkbox
                 name={filterObject.value}
-                onChange={toggleFilter}
-                value={this.state.filters.includes(filterObj.value)}
+                onChange={this.toggleFilter(filterObject.value)}
+                isSelected={this.state.filters[filterObject.value]}
               />
             </label>
           ))}
         </fieldset>
         <label>
           Sort players
-          <select value={this.state.sortOrder}>
-            {sort.map(sortObj => (
-              <option value={sortObj.value}>{sortObj.label}</option>
+          <select value={this.state.sortOrder} onChange={this.handleSortChange}>
+            {SORT.map(sortObj => (
+              <option
+                key={`${sortObj.label.toLowerCase()}--${sortObj.value}`}
+                value={sortObj.value}>
+                {sortObj.label}
+              </option>
             ))}
           </select>
         </label>
+        {/* <label>
+          Include drafted players
+          <Checkbox
+            onChange={console.log}
+            isSelected={this.state.includeSelected}
+          />
+        </label> */}
         <button type="submit">Search</button>
-      </form>
+      </formStyles.StyledForm>
     );
   }
 }
+
+export default SearchForm;

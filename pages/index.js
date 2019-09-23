@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Nav from "../components/nav";
 import Table from "../components/table";
+import SearchForm from "../components/searchForm";
 import * as indexStyles from "./index.styles";
 import { get, patch } from "axios";
 
@@ -11,7 +12,6 @@ const selectPlayer = async ({ playerId, value }) => {
       `http://localhost:9009/players/${playerId}`,
       { selected: value }
     );
-    console.log(patchedRes);
   } catch (e) {
     console.error(e);
   }
@@ -26,6 +26,7 @@ const Home = props => {
       <Nav />
       {/* let's dry this up when we get to making more tables... */}
       <indexStyles.StyledLayout>
+        <SearchForm />
         <Table players={props.players} selectPlayer={selectPlayer} />
       </indexStyles.StyledLayout>
     </div>
