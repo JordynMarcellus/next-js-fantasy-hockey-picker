@@ -1,61 +1,14 @@
 import React from "react";
-import Head from "next/head";
-import Nav from "../components/nav";
-import Table from "../components/Table/table";
-import SearchForm from "../components/searchForm";
-import * as indexStyles from "./index.styles";
-import { get, patch } from "axios";
 
-const selectPlayer = async ({ playerId, value }) => {
-  try {
-    const patchedRes = await patch(
-      `http://localhost:9009/players/${playerId}`,
-      { selected: value }
-    );
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-export const columns = [
-  {
-    header: "Corsica rank",
-    componentKey: "corsica-rank",
-  },
-  {
-    header: "Player name",
-    componentKey: "player-name",
-  },
-  {
-    header: "Current team",
-    componentKey: "current-team",
-  },
-  {
-    header: "Corsica rating",
-    componentKey: "corsica-rating",
-  },
-  {
-    header: "Drafted?",
-    componentKey: "drafted",
-  },
-];
+import PlayerTableContainer from "../containers/PlayerTableContainer/PlayerTableContainer";
+import Layout from "../components/Layout/layout";
+import { get } from "axios";
 
 const Home = props => {
   return (
-    <div>
-      <Head>
-        <title>Fantasy Hockey Picker</title>
-      </Head>
-      <Nav />
-      <indexStyles.StyledLayout>
-        <SearchForm />
-        <Table
-          columns={columns}
-          players={props.players}
-          selectPlayer={selectPlayer}
-        />
-      </indexStyles.StyledLayout>
-    </div>
+    <Layout>
+      <PlayerTableContainer data={props.players} />
+    </Layout>
   );
 };
 
