@@ -51,7 +51,6 @@ class SearchForm extends Component {
   }
 
   toggleFilter = label => value => {
-    console.log(label, value);
     this.setState({
       filters: {
         ...this.state.filters,

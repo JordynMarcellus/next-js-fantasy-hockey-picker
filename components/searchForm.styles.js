@@ -1,4 +1,3 @@
-import React from "React";
 import styled from "@emotion/styled";
 
 export const StyledForm = styled.form`

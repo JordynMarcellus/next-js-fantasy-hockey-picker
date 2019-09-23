@@ -2,6 +2,33 @@ import React from "react";
 import Checkbox from "./checkbox";
 import * as tableStyles from "./table.styles";
 
+/*
+
+  data structure: 
+  
+  {Columns} : [{header: "Corsica rank", key: "corsica-rank", cellChildren: (<tableStyles.RankingAvatar>
+      <span>
+        {player.position}
+        {player.rank}
+      </span>
+    </RankingAvatar>}), {
+      header: "Player name"
+    }]
+
+  {Column.header: "Corsica rank"}
+  {Column.key="corsica-rank"}
+  {Column.cellChildren=(
+    <tableStyles.RankingAvatar>
+      <span>
+        {player.position}
+        {player.rank}
+      </span>
+    </RankingAvatar>
+    )
+  }
+//  <tableStyles.StyledCell as="th" textAlign="center">
+*/
+
 const table = props => (
   <tableStyles.StyledTable>
     <tableStyles.StyledTableHeader>
