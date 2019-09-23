@@ -35,7 +35,10 @@ const table = props => (
       <tr>
         {props.columns.map(tableColumn => {
           return (
-            <tableStyles.StyledCell as="th" textAlign="center">
+            <tableStyles.StyledCell
+              key={`table-header--row--${tableColumn.componentKey}`}
+              as="th"
+              textAlign="center">
               {tableColumn.label}
             </tableStyles.StyledCell>
           );

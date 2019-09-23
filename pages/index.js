@@ -17,26 +17,26 @@ const selectPlayer = async ({ playerId, value }) => {
   }
 };
 
-const columns = [
+export const columns = [
   {
     header: "Corsica rank",
-    key: "corsica-rank",
+    componentKey: "corsica-rank",
   },
   {
     header: "Player name",
-    key: "player-name",
+    componentKey: "player-name",
   },
   {
     header: "Current team",
-    key: "current-team",
+    componentKey: "current-team",
   },
   {
     header: "Corsica rating",
-    key: "corsica-rating",
+    componentKey: "corsica-rating",
   },
   {
     header: "Drafted?",
-    key: "drafted",
+    componentKey: "drafted",
   },
 ];
 
