@@ -62,6 +62,7 @@ class SearchForm extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log(this.state);
+    this.props.onFormSubmit(this.state);
   };
 
   handleSortChange = e => {

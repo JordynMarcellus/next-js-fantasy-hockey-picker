@@ -1,5 +1,4 @@
 import React from "react";
-
 import PlayerTableContainer from "../containers/PlayerTableContainer/PlayerTableContainer";
 import Layout from "../components/Layout/layout";
 import { get } from "axios";
