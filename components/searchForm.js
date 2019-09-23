@@ -61,8 +61,28 @@ class SearchForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
-    this.props.onFormSubmit(this.state);
+    const {
+      filters: filtersObj,
+      searchQuery,
+      sortOrder,
+      includeSelected,
+    } = this.state;
+    const filters = Object.keys(filtersObj)
+      .reduce((filterString, objectFilterKey) => {
+        if (this.state.filters[objectFilterKey] === false) {
+          return filterString;
+        }
+
+        return (filterString += `${objectFilterKey},`);
+      }, "")
+      .replace(/,\s*$/, "");
+    console.log(filters);
+    this.props.onFormSubmit({
+      filters: filters,
+      searchQuery,
+      sortOrder,
+      includeSelected,
+    });
   };
 
   handleSortChange = e => {
