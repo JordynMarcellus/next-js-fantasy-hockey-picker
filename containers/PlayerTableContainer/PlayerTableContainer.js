@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Table from "../../components/Table/table";
 import SearchForm from "../../components/searchForm";
-import { get, patch } from "axios";
+import Axios, { get, patch } from "axios";
 
 export const columns = [
   {
@@ -63,6 +63,10 @@ class PlayerTableContainer extends Component {
       await patch(`http://localhost:9009/players/${playerId}`, {
         selected: value,
       });
+      const { data } = await get("http://localhost:9009/players");
+      this.setState({
+        players: data,
+      });
       // re-fetch data, put in state 😂 -- this is admittedly jank
     } catch (e) {
       console.error(e);
@@ -76,7 +80,7 @@ class PlayerTableContainer extends Component {
         <Table
           columns={columns}
           players={this.state.players}
-          selectPlayer={this.selectPlayer}
+          selectPlayer={this.handlePlayerSelect}
         />
       </>
     );
