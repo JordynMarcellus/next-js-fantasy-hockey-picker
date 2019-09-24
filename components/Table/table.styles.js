@@ -21,6 +21,7 @@ export const StyledTableHeader = styled.thead`
 
 export const StyledRow = styled.tr`
   background-color: ${({ isDrafted }) => (isDrafted ? "red" : "#fff")};
+  cursor: pointer;
 `;
 
 export const StyledCell = styled.td(

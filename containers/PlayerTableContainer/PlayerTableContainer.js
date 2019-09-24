@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import SinglePlayerDataContainer from "../SinglePlayerDataContainer/SinglePlayerDataContainer";
 
 import Drawer from "../../components/Drawer/drawer";
 import SearchForm from "../../components/searchForm";
 import Table from "../../components/Table/table";
 
-import Axios, { get, patch } from "axios";
+import { get, patch } from "axios";
 
 export const columns = [
   {
@@ -37,11 +38,13 @@ class PlayerTableContainer extends Component {
     this.state = {
       players: this.props.data,
       isDrawerOpen: false,
+      selectedPlayerId: "",
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handlePlayerSelect = this.handlePlayerSelect.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
+    this.handlePlayerDrilldown = this.handlePlayerDrilldown.bind(this);
   }
   //   INTERESTING -> we do it in componentDidMount, we get a blank table with headers. we copy it into state, we get a table...
   //   probably has to do with data hydration and initial server-side render 🤓
@@ -93,6 +96,16 @@ class PlayerTableContainer extends Component {
       console.error(e);
     }
   };
+  handlePlayerDrilldown = playerId => {
+    return event => {
+      this.setState(
+        {
+          selectedPlayerId: playerId,
+        },
+        this.toggleDrawer
+      );
+    };
+  };
 
   toggleDrawer = () => {
     this.setState({
@@ -104,8 +117,14 @@ class PlayerTableContainer extends Component {
     return (
       <>
         <Drawer isOpen={this.state.isDrawerOpen}>
-          Hiiii
-          <button onClick={this.toggleDrawer}>Close drawer</button>
+          {this.state.isDrawerOpen && (
+            <>
+              <SinglePlayerDataContainer
+                selectedPlayerId={this.state.selectedPlayerId}
+              />
+              <button onClick={this.toggleDrawer}>Close drawer</button>
+            </>
+          )}
         </Drawer>
         <button onClick={this.toggleDrawer}>Open drawer</button>
         <SearchForm
@@ -115,6 +134,7 @@ class PlayerTableContainer extends Component {
         <Table
           columns={columns}
           players={this.state.players}
+          handlePlayerDrilldown={this.handlePlayerDrilldown}
           selectPlayer={this.handlePlayerSelect}
         />
       </>

@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 const StyledDrawer = styled.div(
   ({ isOpen }) => `
     height: 100%;
-    background: #f1f1f1;
+    background: #f1f1f1;    
     position: fixed;
     top: 0;
     right: 0;
