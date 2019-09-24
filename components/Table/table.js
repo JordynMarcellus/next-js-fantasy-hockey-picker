@@ -60,7 +60,9 @@ const table = props => (
                 </span>
               </tableStyles.RankingAvatar>
             </tableStyles.StyledCell>
-            <tableStyles.StyledCell>{player.name}</tableStyles.StyledCell>
+            <tableStyles.StyledCell textTransform={"capitalize"}>
+              {player.name}
+            </tableStyles.StyledCell>
             <tableStyles.StyledCell>{player.team}</tableStyles.StyledCell>
             <tableStyles.StyledCell textAlign="right">
               {player.rating}

@@ -48,7 +48,6 @@ class PlayerTableContainer extends Component {
           q: query,
         },
       });
-      console.log(data);
       this.setState({
         players: data,
       });
@@ -66,7 +65,6 @@ class PlayerTableContainer extends Component {
           sort: sortOrder,
         },
       });
-      console.log(data);
       this.setState({
         players: data,
       });

@@ -27,11 +27,13 @@ export const StyledCell = styled.td(
   props => `
     text-align: ${props.textAlign}};
     padding: 0.5rem;
+    text-transform: ${props.textTransform}
   `
 );
 
 StyledCell.defaultProps = {
   textAlign: "left",
+  textTransform: "none",
 };
 
 export const RankingAvatar = styled.div`
