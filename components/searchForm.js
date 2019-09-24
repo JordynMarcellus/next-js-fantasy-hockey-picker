@@ -1,35 +1,9 @@
 import React, { Component } from "react";
 import Checkbox from "./checkbox";
 import * as formStyles from "./searchForm.styles";
+import { FILTERS } from "./utils/consts";
 
-const SORT = [
-  { label: "Ascending", value: "ASC" },
-  { label: "Descending", value: "DESC" },
-];
-
-const FILTERS = [
-  {
-    label: "Left wing",
-    value: "LW",
-  },
-  {
-    label: "Right wing",
-    value: "RW",
-  },
-  {
-    label: "Center",
-    value: "C",
-  },
-  {
-    label: "Right defense",
-    value: "RD",
-  },
-  {
-    label: "Left defense",
-    value: "LD",
-  },
-];
-
+// TODO -- let's actually split out the filter and the search later. For now...
 class SearchForm extends Component {
   constructor(props) {
     super(props);
@@ -42,12 +16,11 @@ class SearchForm extends Component {
         RW: false,
         LW: false,
       },
-      sortOrder: "ASC",
       includeSelected: false,
     };
+    this.handleSearch = this.handleSearch.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleFilter = this.toggleFilter.bind(this);
-    this.handleSortChange = this.handleSortChange.bind(this);
   }
 
   toggleFilter = label => value => {
@@ -57,6 +30,11 @@ class SearchForm extends Component {
         [label]: value,
       },
     });
+  };
+
+  handleSearch = event => {
+    event.preventDefault();
+    this.props.onSearchSubmit(this.state.searchQuery);
   };
 
   handleSubmit = event => {
@@ -76,7 +54,7 @@ class SearchForm extends Component {
         return (filterString += `${objectFilterKey},`);
       }, "")
       .replace(/,\s*$/, "");
-    console.log(filters);
+
     this.props.onFormSubmit({
       filters: filters,
       searchQuery,
@@ -85,50 +63,49 @@ class SearchForm extends Component {
     });
   };
 
-  handleSortChange = e => {
-    this.setState({
-      sortOrder: e.target.value,
-    });
-  };
-
   render() {
     return (
-      <formStyles.StyledForm onSubmit={this.handleSubmit}>
-        {/* let's wait until we get search in there... */}
-        {/* <label htmlFor="searchQuery">
-          Search for player by name
-          <input
-            name="searchQuery"
-            onChange={e => this.setState({ [e.target.name]: e.target.value })}
-            value={this.state.searchQuery}
-            type="text"
-          />
-        </label> */}
-        <fieldset>
-          <legend>Filter players by position</legend>
-          {FILTERS.map(filterObject => (
-            <label
-              key={`${filterObject.label.toLowerCase()}--${
-                filterObject.value
-              }`}>
-              {filterObject.label}
-              <Checkbox
-                name={filterObject.value}
-                onChange={this.toggleFilter(filterObject.value)}
-                isSelected={this.state.filters[filterObject.value]}
-              />
-            </label>
-          ))}
-        </fieldset>
-        {/* <label>
+      <>
+        <formStyles.StyledForm onSubmit={this.handleSearch}>
+          {/* let's wait until we get search in there... */}
+          <label htmlFor="searchQuery">
+            Search for player by name
+            <input
+              name="searchQuery"
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
+              value={this.state.searchQuery}
+              type="text"
+            />
+            <button onClick={this.handleSearch}>Search by name</button>
+          </label>
+        </formStyles.StyledForm>
+        <formStyles.StyledForm onSubmit={this.handleSubmit}>
+          <fieldset>
+            <legend>Filter players by position</legend>
+            {FILTERS.map(filterObject => (
+              <label
+                key={`${filterObject.label.toLowerCase()}--${
+                  filterObject.value
+                }`}>
+                {filterObject.label}
+                <Checkbox
+                  name={filterObject.value}
+                  onChange={this.toggleFilter(filterObject.value)}
+                  isSelected={this.state.filters[filterObject.value]}
+                />
+              </label>
+            ))}
+          </fieldset>
+          {/* <label>
           Include drafted players
           <Checkbox
             onChange={console.log}
             isSelected={this.state.includeSelected}
           />
         </label> */}
-        <button type="submit">Search</button>
-      </formStyles.StyledForm>
+          <button type="submit">Search</button>
+        </formStyles.StyledForm>
+      </>
     );
   }
 }

@@ -36,9 +36,26 @@ class PlayerTableContainer extends Component {
     };
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handlePlayerSelect = this.handlePlayerSelect.bind(this);
+    this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
   //   INTERESTING -> we do it in componentDidMount, we get a blank table with headers. we copy it into state, we get a table...
   //   probably has to do with data hydration and initial server-side render 🤓
+
+  onSearchSubmit = async query => {
+    try {
+      const { data } = await get("http://localhost:9009/players/search", {
+        params: {
+          q: query,
+        },
+      });
+      console.log(data);
+      this.setState({
+        players: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   // submit form, fetch data and submit
   onFormSubmit = async ({ filters, sortOrder }) => {
@@ -64,6 +81,7 @@ class PlayerTableContainer extends Component {
         selected: value,
       });
       const { data } = await get("http://localhost:9009/players");
+
       this.setState({
         players: data,
       });
@@ -76,7 +94,10 @@ class PlayerTableContainer extends Component {
   render() {
     return (
       <>
-        <SearchForm onFormSubmit={this.onFormSubmit} />
+        <SearchForm
+          onSearchSubmit={this.onSearchSubmit}
+          onFormSubmit={this.onFormSubmit}
+        />
         <Table
           columns={columns}
           players={this.state.players}
