@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import Table from "../../components/Table/table";
+
+import Drawer from "../../components/Drawer/drawer";
 import SearchForm from "../../components/searchForm";
+import Table from "../../components/Table/table";
+
 import Axios, { get, patch } from "axios";
 
 export const columns = [
@@ -33,7 +36,9 @@ class PlayerTableContainer extends Component {
     super(props);
     this.state = {
       players: this.props.data,
+      isDrawerOpen: false,
     };
+    this.toggleDrawer = this.toggleDrawer.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handlePlayerSelect = this.handlePlayerSelect.bind(this);
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
@@ -46,23 +51,6 @@ class PlayerTableContainer extends Component {
       const { data } = await get("http://localhost:9009/players/search", {
         params: {
           q: query,
-        },
-      });
-      this.setState({
-        players: data,
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  // submit form, fetch data and submit
-  onFormSubmit = async ({ filters, sortOrder }) => {
-    try {
-      const { data } = await get("http://localhost:9009/players", {
-        params: {
-          filter: filters,
-          sort: sortOrder,
         },
       });
       this.setState({
@@ -89,9 +77,37 @@ class PlayerTableContainer extends Component {
     }
   };
 
+  // submit form, fetch data and submit
+  onFormSubmit = async ({ filters, sortOrder }) => {
+    try {
+      const { data } = await get("http://localhost:9009/players", {
+        params: {
+          filter: filters,
+          sort: sortOrder,
+        },
+      });
+      this.setState({
+        players: data,
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  toggleDrawer = () => {
+    this.setState({
+      isDrawerOpen: !this.state.isDrawerOpen,
+    });
+  };
+
   render() {
     return (
       <>
+        <Drawer isOpen={this.state.isDrawerOpen}>
+          Hiiii
+          <button onClick={this.toggleDrawer}>Close drawer</button>
+        </Drawer>
+        <button onClick={this.toggleDrawer}>Open drawer</button>
         <SearchForm
           onSearchSubmit={this.onSearchSubmit}
           onFormSubmit={this.onFormSubmit}
