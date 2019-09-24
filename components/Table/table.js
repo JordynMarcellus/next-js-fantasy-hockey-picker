@@ -53,7 +53,9 @@ const table = props => (
         return (
           <tableStyles.StyledRow
             key={player.id}
-            onClick={props.handlePlayerDrilldown(player.id)}
+            onClick={() => {
+              props.handlePlayerDrilldown(player.id);
+            }}
             isDrafted={player.selected}>
             <tableStyles.StyledCell>
               <tableStyles.RankingAvatar position={player.position}>

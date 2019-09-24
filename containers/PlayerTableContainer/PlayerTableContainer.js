@@ -96,15 +96,14 @@ class PlayerTableContainer extends Component {
       console.error(e);
     }
   };
+  // currying this is useless, we should just call it when clicked on the row...
   handlePlayerDrilldown = playerId => {
-    return event => {
-      this.setState(
-        {
-          selectedPlayerId: playerId,
-        },
-        this.toggleDrawer
-      );
-    };
+    this.setState(
+      {
+        selectedPlayerId: playerId,
+      },
+      this.toggleDrawer
+    );
   };
 
   toggleDrawer = () => {
